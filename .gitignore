@@ -1,0 +1,15 @@
+node_modules
+
+dist/*
+source/*
+data/*
+export/*
+archive/*
+settings/*
+
+!settings/config.default.json
+!dist/.keep
+!source/.keep
+!data/.keep
+!export/.keep
+!archive/.keep

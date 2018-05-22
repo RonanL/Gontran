@@ -1,0 +1,10 @@
+{
+  "sourceFolder": "./source",
+  "exportFolder": "./export",
+  "dataFolder": "./data",
+  "archiveFolder": "./archive",
+  "defaultAuthor": {
+    "fullName": "John Doe",
+    "eMail": "john.doe@example.com"
+  }
+}
