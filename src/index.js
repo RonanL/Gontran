@@ -36,18 +36,18 @@ function processNewFile(filename, sourceFolder) {
 
 const exportSite = () => {
   // Remove existing files
-  removeFiles(settings.exportFolder);
+  removeFiles(settings.exportFolder).then(() => {
+    fs.readdir(settings.dataFolder, (err, files) => {
+      // Export article pages
+      const articles = files.map((file) => {
+        if (file.endsWith('.md')) {
+          return exportFile(file);
+        }
+      }).filter(article => typeof article !== 'undefined');
 
-  fs.readdir(settings.dataFolder, (err, files) => {
-    // Export article pages
-    const articles = files.map((file) => {
-      if (file.endsWith('.md')) {
-        return exportFile(file);
-      }
-    }).filter(article => typeof article !== 'undefined');
-
-    // Export home page
-    exportHomePage(articles);
+      // Export home page
+      exportHomePage(articles);
+    });
   });
 }
 
@@ -65,12 +65,26 @@ const exportHomePage = (articles) => {
 }
 
 const removeFiles = (folder) => {
-  const files = fs.readdirSync(settings.exportFolder);
-  files.map((file) => {
-    if (file !== '.keep') {
-      fs.unlinkSync(`${settings.exportFolder}/${file}`, (err) => {});
-    }
-    return file;
+  return new Promise((resolve, reject) => {
+    const files = fs.readdir(folder, (err, files) => {
+      Promise.all(files.filter(file => file !== '.keep').map((file) => {
+        removeFile(`${folder}/${file}`);
+      })).then(() => {
+        resolve();
+      });
+    });
+  });
+}
+
+const removeFile = (filepath) => {
+  return new Promise((resolve, reject) => {
+    fs.unlink(filepath, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
   });
 }
 
