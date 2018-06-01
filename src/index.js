@@ -38,30 +38,47 @@ const exportSite = () => {
   // Remove existing files
   removeFiles(settings.exportFolder).then(() => {
     fs.readdir(settings.dataFolder, (err, files) => {
+      const result = files.filter(file => file.endsWith('.md')).map((file) => {
+        return exportFile(file);
+      });
       // Export article pages
-      const articles = files.map((file) => {
-        if (file.endsWith('.md')) {
-          return exportFile(file);
-        }
-      }).filter(article => typeof article !== 'undefined');
-
-      // Export home page
-      exportHomePage(articles);
+      Promise.all(result).then((articles) => {
+        // Export home page
+        exportHomePage(articles);
+      });
     });
   });
 }
 
 const exportFile = (filename) => {
-  const markdown = fs.readFileSync(`${settings.dataFolder}/${filename}`, 'utf8');
-  const article = htmlExporter.exportArticle(markdown);
-  article.filename = filename.replace('md', 'html');
-  fs.writeFileSync(`${settings.exportFolder}/${filename.replace('md', 'html')}`, article.html);
-  return article;
+  return new Promise((resolve, reject) => {
+    fs.readFile(`${settings.dataFolder}/${filename}`, 'utf8', (err, markdown) => {
+      const article = htmlExporter.exportArticle(markdown);
+      article.filename = filename.replace('md', 'html');
+      fs.writeFile(`${settings.exportFolder}/${filename.replace('md', 'html')}`, article.html, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(article);
+        }
+      });
+    });
+  });
 };
 
 const exportHomePage = (articles) => {
   const page = htmlExporter.exportHomepage(articles);
-  fs.writeFileSync(`${settings.exportFolder}/index.html`, page.html);
+
+  return new Promise((resolve, reject) => {
+    fs.writeFile(`${settings.exportFolder}/index.html`, page.html, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+  
 }
 
 const removeFiles = (folder) => {
