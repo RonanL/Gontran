@@ -10,28 +10,43 @@ const htmlExporter = new HtmlExporter();
 const markdownImporter = new MarkdownImporter();
 
 const processAll = () => {
-  processNewFiles(settings.sourceFolder);
-
-  exportSite();
+  processNewFiles(settings.sourceFolder).then(() => {
+    exportSite();
+  });
 }
 
 const processNewFiles = (sourceFolder) => {
-  const files = fs.readdirSync(sourceFolder);
-  files.map((file) => {
-    if (file.endsWith('.md')) {
-      processNewFile(file, sourceFolder);
-    }
-    return file;
+  return new Promise((resolve, reject) => {
+    fs.readdir(sourceFolder, (err, files) => {
+      if (err) {
+        reject(err);
+      }
+
+      const result = files.filter(file => file.endsWith('.md')).map((file) => {
+        return processNewFile(file, sourceFolder);
+      });
+      
+      Promise.all(result).then(resolve).catch(reject);
+    });
   });
 }
 
 function processNewFile(filename, sourceFolder) {
-  const markdown = fs.readFileSync(`${sourceFolder}/${filename}`, 'utf8');
-  fs.renameSync(`${sourceFolder}/${filename}`, `${settings.archiveFolder}/${filename}`);
-  const article = markdownImporter.importFile(markdown);
-  const pubDate = new Date(article.metadata.pubDate);
-  const newFilename = `${pubDate.getFullYear()}-${pubDate.getMonth()}-${pubDate.getDate()}-${pubDate.getHours()}-${pubDate.getMinutes()}-${filename}`;
-  fs.writeFileSync(`${settings.dataFolder}/${newFilename}`, article.data);
+  return new Promise((resolve, reject) => {
+    fs.readFile(`${sourceFolder}/${filename}`, 'utf8', (err, markdown) => {
+      fs.rename(`${sourceFolder}/${filename}`, `${settings.archiveFolder}/${filename}`, (err) => {/* Maybe do something here */});
+      const article = markdownImporter.importFile(markdown);
+      const pubDate = new Date(article.metadata.pubDate);
+      const newFilename = `${pubDate.getFullYear()}-${pubDate.getMonth()}-${pubDate.getDate()}-${pubDate.getHours()}-${pubDate.getMinutes()}-${filename}`;
+      fs.writeFile(`${settings.dataFolder}/${newFilename}`, article.data, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(article);
+        }
+      });
+    });
+  });
 };
 
 const exportSite = () => {
