@@ -2,7 +2,7 @@ import showdown from 'showdown';
 import yaml from 'yaml-js';
 import dot from 'dot';
 
-class HtmlExporter {
+class Md2Html {
   constructor() {
     this.converter = new showdown.Converter({
       ghCompatibleHeaderId: true,
@@ -44,4 +44,4 @@ class HtmlExporter {
   }
 }
 
-export default HtmlExporter;
+export default Md2Html;
