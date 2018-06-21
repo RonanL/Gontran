@@ -6,6 +6,7 @@ class Md2Html {
   constructor() {
     this.converter = new showdown.Converter({
       ghCompatibleHeaderId: true,
+      headerLevelStart: 2,
       simplifiedAutoLink: true,
       excludeTrailingPunctuationFromURLs: true,
       simpleLineBreaks: true,
@@ -19,6 +20,7 @@ class Md2Html {
   exportArticle(markDown) {
     const articleContent = this.converter.makeHtml(markDown);
     const metadata = yaml.load(this.converter.getMetadata(true));
+
     const article = {
       metadata: metadata,
       content: articleContent,
