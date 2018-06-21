@@ -29,24 +29,42 @@ class MarkdownImporter {
   }
 
   processMarkdown(markDown) {
+    let data;
+
     // We don’t use the html, but we must process the markdown in order to access the metadata.
     this.converter.makeHtml(markDown);
     const rawMetadata = this.converter.getMetadata(true);
-    const metadata = yaml.load(rawMetadata);
+    let metadata = yaml.load(rawMetadata);
 
-    this.fillMetadatas(metadata);
+    if (metadata !== null) {
+      this.fillMetadata(metadata, markDown);
 
-    const data = markDown.replace(rawMetadata, yaml.dump(metadata));
+      data = markDown.replace(rawMetadata, yaml.dump(metadata));
+    } else {
+      metadata = {};
+      this.fillMetadata(metadata, markDown);
+
+      data = `---\n${yaml.dump(metadata)}---\n${markDown}`;
+    }
+
     return {metadata, data};
   }
 
-  fillMetadatas(metadata) {
+  fillMetadata(metadata, markDown) {
     if (typeof metadata.pubDate === 'undefined' || !metadata.pubDate) {
       const date = new Date();
       metadata.pubDate = date.toGMTString();
     }
     if (typeof metadata.author === 'undefined' || !metadata.author) {
       metadata.author = settings.defaultAuthor;
+    }
+    if (typeof metadata.title === 'undefined' || !metadata.title) {
+      const titleMatch = markDown.match(/# (.*)/);
+      if (titleMatch !== null) {
+        metadata.title = titleMatch[1];
+      } else {
+        metadata.title = null;
+      }
     }
   }
 }
