@@ -4,7 +4,7 @@ import fs from 'fs';
 const argv = yargs
   .alias('c', 'config')
   .argv;
-  
+
 let configFilePath = './settings/config.json';
 if (typeof argv.config !== 'undefined') {
   configFilePath = argv.config;
