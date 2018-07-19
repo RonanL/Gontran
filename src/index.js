@@ -1,12 +1,16 @@
 import fs from 'fs';
 import yargs from 'yargs';
+import dot from 'dot';
 import MarkdownImporter from './importer/markdown';
 import SiteExporter from './exporter/siteExporter';
+import RssExporter from './exporter/rssExporter';
 import settings from './settings';
 
 const processAll = (argv) => {
   importNew(argv).then(() => {
-    exportAll(argv);
+    return exportHtml(argv);
+  }).then(() => {
+    return exportRss(argv);
   });
 }
 
@@ -17,13 +21,22 @@ const importNew = (argv) => {
   return processNewFiles(settings.sourceFolder);
 }
 
-const exportAll = (argv) => {
+const exportHtml = (argv) => {
   const siteExporter = new SiteExporter();
 
   if (argv.verbose) {
     console.log('Exporting site…');
   }
   return siteExporter.exportSite();
+}
+
+const exportRss = (argv) => {
+  const rssExporter = new RssExporter();
+
+  if (argv.verbose) {
+    console.log('Exporting RSS feed…');
+  }
+  return rssExporter.export();
 }
 
 const processNewFiles = (sourceFolder) => {
@@ -48,10 +61,13 @@ const argv = yargs
     processAll(argv);
   })
   .command(['export-all'], 'Export all', () => {}, (argv) => {
-    exportAll(argv);
+    exportHtml(argv);
   })
   .command(['import-new'], 'Import new', () => {}, (argv) => {
     importNew(argv);
+  })
+  .command(['export-rss'], 'Export rss', () => {}, (argv) => {
+    exportRss(argv);
   })
   .option('verbose', {
     alias: 'v',
@@ -59,3 +75,7 @@ const argv = yargs
   })
   .argv;
 
+// Disable dot.js log when not in verbose mode
+if (!argv.verbose) {
+  dot.log = false;
+}

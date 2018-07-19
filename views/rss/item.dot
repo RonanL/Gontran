@@ -1,0 +1,8 @@
+<item>
+  {{? it.metadata.title }}
+    <title>{{=it.metadata.title}}</title>
+  {{? }}
+  <description>{{=it.content}}</description>
+  <pubDate>{{=it.metadata.pubDate}}</pubDate>
+  <guid></guid>
+</item>
