@@ -17,18 +17,24 @@ class Md2Html {
     this.dots = dot.process({ path: "./views"});
   }
 
-  exportArticle(markDown) {
+  convertArticle(markDown) {
     const articleContent = this.converter.makeHtml(markDown);
     const metadata = yaml.load(this.converter.getMetadata(true));
 
-    const article = {
+    return {
       metadata: metadata,
       content: articleContent,
     };
+  }
+
+  exportArticle(markDown) {
+    const article = this.convertArticle(markDown)
+
     const page = {
       title: metadata.title,
       content: this.dots.article(article),
     };
+
     const html = this.dots.page(page);
     return {
       html,

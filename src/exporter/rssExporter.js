@@ -29,8 +29,9 @@ class RssExporter {
         if (err) {
           reject(err);
         } else {
-          const article = this.converter.exportArticle(markdown);
+          const article = this.converter.convertArticle(markdown);
           article.filename = filename.replace('md', 'html');
+          article.url = `${settings.baseURL}/${article.filename}`;
           resolve(this.dots.item(article));
         }
       });
@@ -38,10 +39,14 @@ class RssExporter {
   };
 
   exportFeed(items) {
+    const date = new Date();
     const feed = {
+      siteName: settings.siteName,
+      baseURL: settings.baseURL,
+      buildDate: date.toGMTString(),
       items,
     };
-    
+
     const xmlFeed = this.dots.feed(feed);
 
     return new Promise((resolve, reject) => {

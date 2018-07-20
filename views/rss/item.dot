@@ -2,6 +2,7 @@
   {{? it.metadata.title }}
     <title>{{=it.metadata.title}}</title>
   {{? }}
+  <url>{{=it.url}}</url>
   <description>{{=it.content}}</description>
   <pubDate>{{=it.metadata.pubDate}}</pubDate>
   <guid></guid>
