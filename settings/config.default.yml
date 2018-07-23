@@ -1,0 +1,9 @@
+sourceFolder: "./source"
+exportFolder: "./export"
+dataFolder: "./data"
+archiveFolder: "./archive"
+siteName: "My Blog"
+baseURL: "http://example.com/blog"
+defaultAuthor:
+  fullName: "John Doe"
+  eMail: "john.doe@example.com"

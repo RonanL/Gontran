@@ -1,3 +1,4 @@
+import yaml from 'yaml-js';
 import yargs from 'yargs';
 import fs from 'fs';
 
@@ -5,12 +6,12 @@ const argv = yargs
   .alias('c', 'config')
   .argv;
 
-let configFilePath = './settings/config.json';
+let configFilePath = './settings/config.yml';
 if (typeof argv.config !== 'undefined') {
   configFilePath = argv.config;
 }
 
-const configData = JSON.parse(fs.readFileSync(configFilePath, 'utf8'));
+const configData = yaml.load(fs.readFileSync(configFilePath, 'utf8'));
 
 const argvData = {};
 

@@ -7,7 +7,7 @@ export/*
 archive/*
 settings/*
 
-!settings/config.default.json
+!settings/config.default.yml
 !dist/.keep
 !source/.keep
 !data/.keep
