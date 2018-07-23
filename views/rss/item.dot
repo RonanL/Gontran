@@ -5,5 +5,5 @@
   <url>{{=it.url}}</url>
   <description>{{=it.content}}</description>
   <pubDate>{{=it.metadata.pubDate}}</pubDate>
-  <guid></guid>
+  <guid>{{= it.metadata.guid }}</guid>
 </item>

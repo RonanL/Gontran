@@ -31,14 +31,14 @@ class Md2Html {
     const article = this.convertArticle(markDown)
 
     const page = {
-      title: metadata.title,
+      title: article.metadata.title,
       content: this.dots.article(article),
     };
 
     const html = this.dots.page(page);
     return {
       html,
-      metadata,
+      metadata: article.metadata,
     };
   }
 

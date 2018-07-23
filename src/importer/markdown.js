@@ -1,6 +1,7 @@
 import fs from 'fs';
 import showdown from 'showdown';
 import yaml from 'yaml-js';
+import uuid from 'uuid/v1';
 import settings from '../settings';
 
 class MarkdownImporter {
@@ -57,6 +58,9 @@ class MarkdownImporter {
     }
     if (typeof metadata.author === 'undefined' || !metadata.author) {
       metadata.author = settings.defaultAuthor;
+    }
+    if (typeof metadata.guid === 'undefined' || !metadata.guid) {
+      metadata.guid = uuid();
     }
     if (typeof metadata.title === 'undefined' || !metadata.title) {
       const titleMatch = markDown.match(/# (.*)/);

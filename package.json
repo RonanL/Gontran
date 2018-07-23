@@ -10,6 +10,7 @@
   "dependencies": {
     "dot": "^1.1.2",
     "showdown": "^1.8.6",
+    "uuid": "^3.3.2",
     "yaml-js": "^0.2.3",
     "yargs": "^11.0.0"
   },
