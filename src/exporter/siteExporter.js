@@ -9,7 +9,7 @@ class SiteExporter {
 
   exportSite() {
     // Remove existing files
-    this.removeFiles(settings.exportFolder).then(() => {
+    return this.removeFiles(settings.exportFolder).then(() => {
       fs.readdir(settings.dataFolder, (err, files) => {
         const result = files.filter(file => file.endsWith('.md')).map((file) => {
           return this.exportFile(file);

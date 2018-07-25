@@ -7,10 +7,8 @@ import RssExporter from './exporter/rssExporter';
 import settings from './settings';
 
 const processAll = (argv) => {
-  importNew(argv).then(() => {
-    return exportHtml(argv);
-  }).then(() => {
-    return exportRss(argv);
+  return importNew(argv).then(() => {
+    return exportAll(argv);
   });
 }
 
@@ -19,6 +17,12 @@ const importNew = (argv) => {
     console.log('Importing new content…');
   }
   return processNewFiles(settings.sourceFolder);
+}
+
+const exportAll = (argv) => {
+  return exportHtml(argv).then(() => {
+    return exportRss(argv);
+  });
 }
 
 const exportHtml = (argv) => {
@@ -61,6 +65,9 @@ const argv = yargs
     processAll(argv);
   })
   .command(['export-all'], 'Export all', () => {}, (argv) => {
+    exportAll(argv);
+  })
+  .command(['export-site'], 'Export site', () => {}, (argv) => {
     exportHtml(argv);
   })
   .command(['import-new'], 'Import new', () => {}, (argv) => {
