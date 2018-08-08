@@ -7,6 +7,15 @@ export/*
 archive/*
 settings/*
 
+.idea
+.vscode
+*.code-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.orig
+
 !settings/config.default.yml
 !dist/.keep
 !source/.keep
