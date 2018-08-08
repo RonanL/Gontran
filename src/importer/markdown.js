@@ -70,6 +70,11 @@ class MarkdownImporter {
         metadata.title = null;
       }
     }
+    if (metadata.title !== null) {
+      metadata.filename = metadata.title.trim().toLowerCase()
+        .replace(/[!@#$%^&*(),.?":{}|<>_\\\/\- ]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+    }
   }
 }
 

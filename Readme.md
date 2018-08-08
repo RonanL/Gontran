@@ -12,7 +12,7 @@ Coming soon…
 
 ## Dependencies
 
-Gontran depends on:
+Gontran is based on:
  - [Showdown](https://showdownjs.com/) as a markdown to HTML converter
  - [doT.js](https://olado.github.io/doT/index.html) as a template engine
 

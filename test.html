@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>Youtube et les RSS</title>
+<style>
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 0;
+  margin: 0;
+  color: #222;
+}
+
+.content {
+  max-width: 60em;
+  background-color: #fafafa;
+  margin: 0 auto;
+  padding: 2em;
+  line-height: 1.4em;
+}
+
+a {
+  color: #444;
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+  <div class="content">
+    <h1 id="youtube-et-les-rss">Youtube et les RSS</h1>
+    <p>Depuis plusieurs années, YouTube cache une partie de ses flux RSS, qui sont pourtant bien pratiques par exemple si l’on ne souhaite pas avoir de compte google.</p>
+    <p>Les flux des chaînes sont encore faciles à trouver, une url de ce type se trouvant dans le html de la page d’accueil de chaque chaîne :<br />
+    <em><a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCqJ-Xo29CKyLTjn6z2XwYAw">https://www.youtube.com/feeds/videos.xml?channel_id=UCqJ-Xo29CKyLTjn6z2XwYAw</a></em><br />
+    À noter que l’on peut facilement construire une URL équivalente mais un peu plus parlante à partir du nom d’utilisateur de la chaîne (à condition de le trouver) :<br />
+    <em><a href="https://www.youtube.com/feeds/videos.xml?user=McBacon1337">https://www.youtube.com/feeds/videos.xml?user=McBacon1337</a></em></p>
+    <p>Cependant si l’on ne souhaite pas suivre une chaîne, mais juste une playlist, il est impossible de trouver l’url du flux dans la page de cette dernière.<br />
+    La page de la playlist est d’ailleurs elle-même cachée derrière des liens pas forcément évidents : à partir de la page listant les playlists d’une chaîne, cliquer sur une playlist ne vous mènera pas à la page sa page mais directement à sa première vidéo : il faut encore cliquer sur le nom de la playlist à droite de la vidéo pour enfin arriver sur la page de la playlist.<br />
+    Pour retrouver le flux, il faut alors reconstruire son url à partir de l’identifiant de la playlist présent dans l’url de la page :<br />
+    <em><a href="https://www.youtube.com/feeds/videos.xml?playlist_id=PLc38fcMFcV_ul4D6OChdWhsNsYY3NA5B2">https://www.youtube.com/feeds/videos.xml?playlist_id=PLc38fcMFcV_ul4D6OChdWhsNsYY3NA5B2</a></em></p>
+    <p>Et voilà, vous pouvez enfin suivre votre playlist préférée sans devoir subir le reste de la chaîne !</p>
+  </div>
+</body>
+</html>

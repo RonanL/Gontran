@@ -27,8 +27,8 @@ class SiteExporter {
     return new Promise((resolve, reject) => {
       fs.readFile(`${settings.dataFolder}/${filename}`, 'utf8', (err, markdown) => {
         const article = this.converter.exportArticle(markdown);
-        article.filename = filename.replace('md', 'html');
-        fs.writeFile(`${settings.exportFolder}/${filename.replace('md', 'html')}`, article.html, (err) => {
+        article.filename = `${article.metadata.filename}.html`;
+        fs.writeFile(`${settings.exportFolder}/${article.filename}`, article.html, (err) => {
           if (err) {
             reject(err);
           } else {
