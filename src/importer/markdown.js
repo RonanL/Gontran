@@ -71,11 +71,11 @@ class MarkdownImporter {
       }
     }
     if (metadata.title !== null) {
-      metadata.filename = metadata.title.trim().toLowerCase()
+      metadata.identifier = metadata.title.trim().toLowerCase()
         .replace(/[!@#$%^&*(),.?":{}|<>_\\\/\- ]+/g, '-')
         .replace(/(^-|-$)/g, '');
     } else {
-      metadata.filename = filename.replace(/\.[a-zA-Z0-9]+$/, '');
+      metadata.identifier = filename.replace(/\.[a-zA-Z0-9]+$/, '');
     }
   }
 }

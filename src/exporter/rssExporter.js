@@ -30,7 +30,11 @@ class RssExporter {
           reject(err);
         } else {
           const article = this.converter.convertArticle(markdown);
-          article.url = `${settings.baseURL}/${article.metadata.filename}.html`;
+          const date = new Date(article.metadata.guid);
+          const dateString = `${date.getFullYear()}-${`0${date.getMonth()+1}`.slice(-2)}-${`0${date.getDate()}`.slice(-2)}`
+          const filename = `${dateString}_${article.metadata.identifier}.html`;
+
+          article.url = `${settings.baseURL}/${filename}`;
           resolve(this.dots.item(article));
         }
       });
