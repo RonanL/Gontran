@@ -28,7 +28,7 @@ class SiteExporter {
       fs.readFile(`${settings.dataFolder}/${filename}`, 'utf8', (err, markdown) => {
         const article = this.converter.exportArticle(markdown);
         const date = new Date(article.metadata.pubDate);
-        const dateString = `${date.getFullYear()}-${`0${date.getMonth()+1}`.slice(-2)}-${`0${date.getDate()}`.slice(-2)}`
+        const dateString = `${date.getFullYear()}-${`0${date.getMonth()+1}`.slice(-2)}-${`0${date.getDate()}`.slice(-2)}`;
         article.filename = `${dateString}_${article.metadata.identifier}.html`;
         fs.writeFile(`${settings.exportFolder}/${article.filename}`, article.html, (err) => {
           if (err) {

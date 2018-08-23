@@ -9,6 +9,24 @@ body {
   color: #222;
 }
 
+nav {
+  display: flex;
+  max-width: 64em;
+  margin: 0 auto;
+  padding: 0;
+  background-color: #dadada;
+}
+
+nav .item {
+  min-width: 2em;
+  padding: 0.5em;
+  text-align: center;
+}
+
+nav .item:hover {
+  background-color: #eaeaea;
+}
+
 .content {
   max-width: 60em;
   background-color: #fafafa;
@@ -29,6 +47,10 @@ a {
 </style>
 </head>
 <body>
+  <nav role="navigation">
+    <a class="item" href="./" title="Home">🏠</a>
+    <a class="item" href="./feed.rss" title="Rss Feed">🏄</a>
+  </nav>
   {{=it.content}}
 </body>
 </html>

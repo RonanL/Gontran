@@ -1,6 +1,7 @@
 import showdown from 'showdown';
 import yaml from 'yaml-js';
 import dot from 'dot';
+import settings from '../settings';
 
 class Md2Html {
   constructor() {
@@ -21,9 +22,14 @@ class Md2Html {
     const articleContent = this.converter.makeHtml(markDown);
     const metadata = yaml.load(this.converter.getMetadata(true));
 
+    const date = new Date(metadata.pubDate);
+    const pubDateString = `${`0${date.getDate()}`.slice(-2)} / ${`0${date.getMonth()+1}`.slice(-2)} / ${date.getFullYear()}`;
+
     return {
       metadata: metadata,
       content: articleContent,
+      pubDate: date,
+      pubDateString,
     };
   }
 
@@ -31,21 +37,20 @@ class Md2Html {
     const article = this.convertArticle(markDown)
 
     const page = {
+      settings,
       title: article.metadata.title,
       content: this.dots.article(article),
     };
 
-    const html = this.dots.page(page);
-    return {
-      html,
-      metadata: article.metadata,
-    };
+    article.html = this.dots.page(page);
+    return article;
   }
 
   exportHomepage(articles) {
     const page = {
+      settings,
       title: 'Liste des articles',
-      content: this.dots.homepage({articles}),
+      content: this.dots.homepage({settings, articles}),
     };
     const html = this.dots.page(page);
     return {html};

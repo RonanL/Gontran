@@ -5,7 +5,8 @@
   "author": "Ronan LEROY",
   "private": true,
   "scripts": {
-    "build": "babel src -d dist"
+    "build": "babel src -d dist",
+    "export-all": "./node_modules/babel-cli/bin/babel-node.js src/index.js export-all"
   },
   "dependencies": {
     "dot": "^1.1.2",

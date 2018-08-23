@@ -2,6 +2,6 @@
 {{? it.metadata.title }}
   <h1>{{=it.metadata.title}}</h1>
 {{? }}
-<p class="publication-info">Published by {{=it.metadata.author.fullName}} on {{=it.metadata.pubDate}}<p>
+<p class="publication-info">Published by {{=it.metadata.author.fullName}} on {{=it.pubDateString}}<p>
 {{=it.content}}
 </div>
