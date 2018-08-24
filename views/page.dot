@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>{{=it.title}}</title>
+<title>{{=it.title}} / {{=it.settings.siteName}}</title>
 <style>
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -13,8 +13,8 @@ nav {
   display: flex;
   max-width: 64em;
   margin: 0 auto;
-  padding: 0;
-  background-color: #dadada;
+  padding: 0 2em;
+  background-color: #eaeaea;
 }
 
 nav .item {
@@ -24,7 +24,19 @@ nav .item {
 }
 
 nav .item:hover {
-  background-color: #eaeaea;
+  background-color: #f2f2f2;
+}
+
+header .top {
+  max-width: 60em;
+  background-color: #fafafa;
+  margin: 0 auto;
+  padding: 1em 2em;
+  line-height: 1.4em;
+}
+
+header .site-name {
+  font-size: 1.6em;
 }
 
 .content {
@@ -47,10 +59,13 @@ a {
 </style>
 </head>
 <body>
-  <nav role="navigation">
-    <a class="item" href="./" title="Home">🏠</a>
-    <a class="item" href="./feed.rss" title="Rss Feed">🏄</a>
-  </nav>
+  <header>
+    <div class="top"><span class="site-name">{{=it.settings.siteName}}</span></div>
+    <nav role="navigation">
+      <a class="item" href="./" title="Home">🏠</a>
+      <a class="item" href="./feed.rss" title="Rss Feed">🏄</a>
+    </nav>
+  </header>
   {{=it.content}}
 </body>
 </html>

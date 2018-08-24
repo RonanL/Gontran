@@ -1,11 +1,11 @@
 <div class="content">
-<h1>{{=it.settings.siteName}}</h1>
-<ul>
 {{~it.articles :article:index}}
-  <li>
+  <article>
     <a href="{{=article.filename}}">{{=article.metadata.title}}</a>
-    <p class="publication-info">Published by {{=article.metadata.author.fullName}} on {{=article.pubDateString}}<p>
-  </li>
+    <p class="publication-info">
+      Published by {{=article.metadata.author.shortName}} on 
+      <time datetime="{{=article.pubDate}}">{{=article.pubDateString}}</time>
+    <p>
+  </article>
 {{~ }}
-</ul>
 </div>
