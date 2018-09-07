@@ -1,6 +1,7 @@
 <html>
 <head>
-<title>{{=it.title}} / {{=it.settings.siteName}}</title>
+  <title>{{=it.title}} / {{=it.settings.siteName}}</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <style>
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -23,6 +24,7 @@ body {
 
 nav {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   margin: 0 auto;
   padding: 0 2em;
