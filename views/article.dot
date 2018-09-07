@@ -1,7 +1,5 @@
-<div class="content">
 {{? it.metadata.title }}
   <h1>{{=it.metadata.title}}</h1>
 {{? }}
 <p class="publication-info">Published by {{=it.metadata.author.shortName}} on {{=it.pubDateString}}<p>
 {{=it.content}}
-</div>

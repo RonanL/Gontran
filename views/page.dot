@@ -1,4 +1,5 @@
-<html>
+<!doctype html>
+<html lang="fr-FR">
 <head>
   <title>{{=it.title}} / {{=it.settings.siteName}}</title>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -91,7 +92,9 @@ article.summary {
         <a class="item" href="./feed.rss" title="Rss Feed">🏄</a>
       </nav>
     </header>
-    {{=it.content}}
+    <div class="content" role="main">
+      {{=it.content}}
+    </div>
   </div>
 </body>
 </html>

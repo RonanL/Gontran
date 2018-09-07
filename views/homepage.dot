@@ -1,4 +1,3 @@
-<div class="content">
 {{~it.articles :article:index}}
   <article class="summary">
     <a href="{{=article.filename}}">{{=article.metadata.title}}</a><br />
@@ -8,4 +7,3 @@
     </span>
   </article>
 {{~ }}
-</div>
