@@ -1,11 +1,11 @@
 <div class="content">
 {{~it.articles :article:index}}
-  <article>
-    <a href="{{=article.filename}}">{{=article.metadata.title}}</a>
-    <p class="publication-info">
+  <article class="summary">
+    <a href="{{=article.filename}}">{{=article.metadata.title}}</a><br />
+    <span class="publication-info">
       Published by {{=article.metadata.author.shortName}} on 
       <time datetime="{{=article.pubDate}}">{{=article.pubDateString}}</time>
-    <p>
+    </span>
   </article>
 {{~ }}
 </div>
