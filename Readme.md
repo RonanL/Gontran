@@ -20,4 +20,5 @@ Other main dependencies are:
  - [uuid](https://github.com/kelektiv/node-uuid)
  - [yaml-js](https://github.com/connec/yaml-js)
  - [yargs](https://yargs.js.org/)
+ - [node-sass](https://github.com/sass/node-sass)
 
