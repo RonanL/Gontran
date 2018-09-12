@@ -1,10 +1,12 @@
-sourceFolder: "./source"
-exportFolder: "./export"
-dataFolder: "./data"
-archiveFolder: "./archive"
 siteName: "My Blog"
 baseURL: "http://example.com/blog"
 defaultAuthor:
   shortName: "John"
   fullName: "John Doe"
   eMail: "john.doe@example.com"
+
+sourceFolder: "./source"
+exportFolder: "./export"
+dataFolder: "./data"
+archiveFolder: "./archive"
+styleSheetSource: "./styles/main.scss"

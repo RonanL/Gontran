@@ -5,6 +5,8 @@ import MarkdownImporter from './importer/markdown';
 import SiteExporter from './exporter/siteExporter';
 import RssExporter from './exporter/rssExporter';
 import settings from './settings';
+import sass from 'node-sass';
+
 
 const processAll = (argv) => {
   return importNew(argv).then(() => {
@@ -43,6 +45,24 @@ const exportRss = (argv) => {
   return rssExporter.export();
 }
 
+const exportStyles = (argv) => {
+  return sass.render({
+    file: settings.styleSheetSource,
+  }, function(err, result) {
+    if (err) {
+      return false;
+    }
+
+    fs.writeFile(`${settings.exportFolder}/css/style.css`, result.css, (err) => {
+      if (err) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+  });
+}
+
 const processNewFiles = (sourceFolder) => {
   return new Promise((resolve, reject) => {
     fs.readdir(sourceFolder, (err, files) => {
@@ -75,6 +95,9 @@ const argv = yargs
   })
   .command(['export-rss'], 'Export rss', () => {}, (argv) => {
     exportRss(argv);
+  })
+  .command(['export-css'], 'Export css', () => {}, (argv) => {
+    exportStyles(argv);
   })
   .option('verbose', {
     alias: 'v',
